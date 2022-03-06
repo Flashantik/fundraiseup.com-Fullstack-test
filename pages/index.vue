@@ -1,5 +1,5 @@
 <template>
-  <div class="DonationCard" @submit.prevent="sendDonate()">
+  <form class="DonationCard" @submit.prevent="sendDonate()">
     <div class="DonationCard__buttons">
       <variable
         v-for="(item, index) in presets"
@@ -8,6 +8,7 @@
         :sum="computeValue(item)"
       >
         <button
+          type="button"
           :class="{ DonationCard__buttons_active: suggestion == sum }"
           @click="dirtySuggestion = suggestion = sum"
         >
@@ -35,8 +36,8 @@
         </option>
       </select>
     </div>
-    <button class="DonationCard__submit" @click="sendDonate()">Donate</button>
-  </div>
+    <button class="DonationCard__submit">Donate</button>
+  </form>
 </template>
 
 <script>
@@ -102,7 +103,7 @@ export default {
           alert('Thank you for your donation!')
         })
         .catch((err) => {
-          alert(err)
+          alert(err.response?.data?.error || err)
         })
     },
   },
