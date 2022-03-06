@@ -29,5 +29,5 @@ app.get('/', (req, res) => {
 app.use('/donate', donate)
 
 app.listen({ port: environment[env].port }, () => {
-  console.log(`Server is running at http://localhost:8080`)
+  console.log(`Server is running at http://localhost:${environment[env].port}`)
 })
