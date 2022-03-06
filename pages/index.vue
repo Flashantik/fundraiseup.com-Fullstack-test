@@ -72,7 +72,7 @@ export default {
     convertToNiceNumber(value) {
       const roundedValue = Math.round(value)
       const stringValue = roundedValue.toString()
-      const numberDigit = +`1${'0'.repeat(stringValue.length - 1)}`
+      const numberDigit = +`1${'0'.repeat(stringValue.length - 1)}` // convert number to number digit 1 -> 10, 2-> 100
       if (stringValue.length <= 3) {
         return Math.round(roundedValue / 10) * 10
       } else if (stringValue.length === 4) {
@@ -93,7 +93,17 @@ export default {
       return this.convertToNiceNumber(value * this.currency.rate)
     },
     sendDonate() {
-      this.$axios.$post('')
+      this.$axios
+        .$post('http://localhost:8080/donate', {
+          amount: this.suggestion,
+          currency: this.currency.code,
+        })
+        .then((data) => {
+          alert('Thank you for your donation!')
+        })
+        .catch((err) => {
+          alert(err)
+        })
     },
   },
 }
